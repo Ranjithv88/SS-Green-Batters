@@ -1,0 +1,19 @@
+
+// all properties Styles
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+// Font Configurations 
+@font-face {
+    font-family: FunnelSans;
+    src: url('../../public/font/FunnelSans-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: Oswald;
+    src: url('../../public/font/Oswald-VariableFont_wght.ttf');
+}
+

@@ -1,0 +1,157 @@
+
+// Footer Components Style 
+.footer {
+  background-color: #e2e8f0; // bg-blueGray-200
+  padding: 2rem 0 1.5rem;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+  }
+
+  &__column {
+    width: 100%;
+    padding: 1rem;
+
+    @media (min-width: 1024px) {
+      width: 50%;
+    }
+  }
+
+  &__title {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #2d3748;
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    margin: 0.5rem 0 1rem;
+    color: #718096;
+  }
+
+  &__socials {
+    display: flex;
+    margin-top: 1.5rem;
+
+    .footer__icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      &.instagram, &.x, &.facebook {
+        padding: 4px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        &:hover {
+            animation: spin 2s linear;
+        }
+      }
+
+      &.instagram {
+        background-image: url('../../../public/image/instagram-200.png');
+      }
+
+      &.x {
+        background-image: url('../../../public/image/x-250.png');
+      }
+
+      &.facebook {
+        background-image: url('../../../public/image/facebook-logo-240.png');
+      }
+
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__link-block {
+    width: 100%;
+    padding: 1rem 1rem 0;
+
+    @media (min-width: 1024px) {
+      width: 50%;
+    }
+
+    .footer__section-title {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #a0aec0;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding-bottom: 0.5rem;
+
+        a {
+          font-size: 0.875rem;
+          color: #4a5568;
+          font-weight: 600;
+          text-decoration: none;
+
+          &:hover {
+            color: #2d3748;
+          }
+        }
+      }
+    }
+  }
+
+  &__divider {
+    margin: 2rem 0;
+    border-color: #cbd5e0;
+  }
+
+  &__bottom {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #718096;
+    font-weight: 600;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: #1a202c;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
