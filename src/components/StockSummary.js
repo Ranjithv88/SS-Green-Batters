@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './style/StockSummary.scss';
 import axios from "axios";
 
-function StockSummary({ name, api }) {
+function StockSummary({ name, style }) {
   const [stock, setStock] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,8 +14,9 @@ function StockSummary({ name, api }) {
 
   const getStock = async () => {
     try {
-      var response = await axios.get(`http://localhost:3000/api/${api}`);
-      setStock(response.data?.products)
+      var response = await axios.get(`http://localhost:3000/api/stock/${name}`);
+      if(response.data.status === 200)
+        setStock(response.data?.products)
     } catch (error) {
       console.error("Error fetching stock data:", error);
     } finally {
@@ -25,7 +26,7 @@ function StockSummary({ name, api }) {
 
   return (
     <main id="mainStockSummary">
-      <h2>{name}</h2>
+      <h2 style={{ backgroundColor: style }}>{name}</h2>
       <div className="table-wrapper">
         <table className="fl-table">
           <thead>

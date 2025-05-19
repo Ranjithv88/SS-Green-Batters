@@ -1,6 +1,5 @@
 
 // Stock Summary Components Style
-$primary-color: rgba(71, 147, 227, 1);
 $thead-bg-even: #4FC3A1;
 $thead-bg-odd: #324960;
 $text-color: #ffffff;
@@ -13,7 +12,6 @@ main{
   h2 {
     font-family: Helvetica;
     -webkit-font-smoothing: antialiased;
-    background: $primary-color;
     text-align: center;
     font-size: 18px;
     text-transform: uppercase;
