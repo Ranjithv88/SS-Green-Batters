@@ -15,12 +15,11 @@ function StockSummary({ name, api }) {
   const getStock = async () => {
     try {
       var response = await axios.get(`http://localhost:3000/api/${api}`);
-      setStock(response.data.products)
+      setStock(response.data?.products)
     } catch (error) {
       console.error("Error fetching stock data:", error);
     } finally {
       setLoading(false);
-      console.log(stock)
     }
   };
 
@@ -54,12 +53,12 @@ function StockSummary({ name, api }) {
             ) : (
               stock.map((item, index) => (
                 <React.Fragment key={index}>
-                  {item.Packing.map((packing, subIndex) => (
+                  {item.packing.map((packing, subIndex) => (
                     <tr key={`${index}-${subIndex}`}>
-                      {subIndex === 0 && <td rowSpan={item.Packing.length}>{item.sno}</td>}
-                      {subIndex === 0 && <td rowSpan={item.Packing.length}>{item.Product}</td>}
+                      {subIndex === 0 && <td rowSpan={item.packing.length}>{item.sno}</td>}
+                      {subIndex === 0 && <td rowSpan={item.packing.length}>{item.product}</td>}
                       <td>{packing}</td>
-                      <td>{item.Quantity[subIndex]}</td>
+                      <td>{item.quantity[subIndex]}</td>
                       <td>{item.container[subIndex]}</td>
                     </tr>
                   ))}

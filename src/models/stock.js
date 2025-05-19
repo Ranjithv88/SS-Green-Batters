@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const commonSchema = {
   sno: { type: Number, required: true, unique: true },
-  Product: { type: String, required: true },
-  Packing: [{ type: String }],
-  Quantity: [{ type: String }],
+  product: { type: String, required: true },
+  packing: [{ type: String }],
+  quantity: [{ type: String }],
   container: [{ type: String }],
 };
 

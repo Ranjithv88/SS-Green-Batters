@@ -1,25 +1,21 @@
 import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
-import bcrypt from "bcryptjs";
+import * as models from "@/models/stock";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { name, email, password } = await req.json();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
     await connectMongoDB();
-    await User.create({ name, email, password: hashedPassword });
-
+    const body = await req.json();
+    console.log(body.json)
+    await models.Atharv.insertMany(body.json);
     return NextResponse.json(
-      { message: "User created successfully" },
+      { message: "Data Added Successfully....!" },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error while registering user:", error.message);
-    
+    console.error("Error while adding data:", error.message);
     return NextResponse.json(
-      { message: "User registration failed" },
+      { message: "Failed to add data" },
       { status: 500 }
     );
   }
