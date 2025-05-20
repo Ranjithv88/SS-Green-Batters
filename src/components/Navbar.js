@@ -1,30 +1,68 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react'
-import './style/NavBar.scss'
-import { useRouter } from "next/navigation"
+import React, { useState, useEffect } from 'react';
+import './style/NavBar.scss';
+import { useRouter } from "next/navigation";
+import Link from 'next/link';
+import { signOut, useSession } from "next-auth/react";
 
 const MenuNavigation = () => {
-    const [process, setProcess] = useState(false)
-    const router = useRouter()
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const [userName, setUserName] = useState(null);
 
-    const LoginButton = async() => {
-      setProcess(true)
-      router.push('./login')
-      setProcess(false)
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      setUserName(session.user.name);
+    } else {
+      setUserName(null);
     }
+  }, [status, session]);
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/' }); // No reload needed
+  };
 
   return (
-    <div className="mainContainer">
-        <div className="container">
-            <h1 className="title">SS Green Batters</h1>
-            <nav className="nav">
-            <a href="#mainStockSummary" className="btn">Stock Summary</a>
-            <a href="#" className="btn">Water Soluble</a>
-            <a href="#footer" className="btn">About</a>
-            </nav>
-            <button className="btn" type='button' style={{pointerEvents:`${process?'none':'normal'}`}} onClick={LoginButton}>{process?'Loading...':'LogIn'}</button>
+    <div className="mainContainer" id="mainContainer">
+      <div className="container">
+        <h1 className="title">SS Green Batters</h1>
+
+        <nav className="nav">
+          <Link href="/" className="btn">Home</Link>
+
+          <div className="dropdown">Menu
+            <div className="dropdown-content">
+              <a href="#Dust">Dust</a>
+              <a href="#WaterSoluble">WaterSoluble</a>
+              <a href="#Bio">Bio</a>
+              <a href="#Micronutrients">Micronutrients</a>
+              <a href="#LiquidFertilizers">LiquidFertilizers</a>
+              <a href="#Granules">Granules</a>
+              <a href="#Ratol">Ratol</a>
+              <a href="#Atharv">Atharv</a>
+              <a href="#Others">Others</a>
+            </div>
+          </div>
+
+          <a href="#footer" className="btn">About</a>
+        </nav>
+
+        <div>
+          {userName ? (
+            <>
+              <Link href="/dashboard" className="btn">{userName}</Link>
+              <button className="btn" type="button" onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <button className="btn" type="button" onClick={handleLogin}>Login</button>
+          )}
         </div>
+      </div>
     </div>
   );
 };
