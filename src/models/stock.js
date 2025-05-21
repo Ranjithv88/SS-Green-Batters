@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { unique } from "next/dist/build/utils";
 
 const commonSchema = {
   sno: { type: Number, required: true, unique: true },

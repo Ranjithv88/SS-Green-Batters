@@ -26,6 +26,8 @@ const UserInformation = () => {
     const [container, setContainer] = useState(['']);
     const [productValidation, setProductValidation] = useState(false)
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const [save, setSave] = useState(false);
+    const [productExist, setProductExist] = useState(false);
 
     useEffect(() => {
         const adjustArrayLength = (prevArray) => {
@@ -58,7 +60,6 @@ const UserInformation = () => {
 
         console.log('Row changed to:', row);
     }, [row]);
-
 
     useEffect(() => {
         const path = pathName.split('/');
@@ -106,7 +107,9 @@ const UserInformation = () => {
         console.log({ packing, quantity, container }, indexRow, field)
     }
 
+
     const validation = async() => {
+        setSave(true)
         if(addItem){
             if(product===''){
                 const input = document.querySelector('#editInput')
@@ -116,18 +119,46 @@ const UserInformation = () => {
                 setProductValidation(true)
                 await sleep(5000)
                 setProductValidation(false)
+            }else{
+                await saveData()
             }
         }
-        // setAddItem(!addItem)
+        setSave(false)
     } 
 
-    if (status === 'loading') {
-        return <Loading />;
+    const saveData = async () => {
+        try {
+            const path = pathName.split('/');
+            const response = await axios.post(`http://localhost:3000/api/stock/edit/${path[2]}`, {
+                sno: stock.length+1,
+                product: product,
+                packing: packing,
+                quantity: quantity,
+                container: container
+            },{
+                withCredentials: true
+            })
+            if(response.status===201){
+                console.log('Inserted:', response.data)
+                setProductExist(false)
+                window.location.reload()
+            }
+        } catch (error) {
+            if(error.response.status===403){
+                console.log(" places login Again ...! ")
+                alert(" places login Again ...! ")
+            }else if (error.response.status===409){
+                console.log("enter")
+                setProductExist(true)
+            } 
+            const errorMessage = error.response?.data?.error || ' Something went wrong '
+            console.error('Insert error:', errorMessage)
+        }
     }
 
-    if (!session || notValid) {
-        return <NotFound />;
-    }
+    if (status === 'loading') return <Loading />
+
+    if (!session || notValid) return <NotFound />
 
     return (
         <main >
@@ -201,7 +232,8 @@ const UserInformation = () => {
                            <td rowSpan={row}>{stock.length + 1}</td>
                             <td rowSpan={row}>
                                 <input className="editInput" id='editInput' minLength={2} onChange={(e)=>setProduct(e.target.value)} value={product} placeholder={columnName[0]} />
-                                {productValidation&&<h5 style={{ color: 'rgba(227, 11, 92, 1)' }}> places Enter the value </h5>}
+                                {productValidation&&<h5 style={{ color: 'rgba(227, 11, 92, 1)' }}> places Enter the Product name </h5>}
+                                {productExist&&<h5 style={{ color: 'rgba(227, 11, 92, 1)' }}> Already Product Exist... </h5>}
                             </td>
                             {[...Array(3)].map((_, index) => (
                                 <td key={index}>
@@ -224,8 +256,8 @@ const UserInformation = () => {
                         </>)}
                         <tr>
                             <td colSpan='7' style={{ textAlign: "center", fontSize: '15px' }}>
-                                <button className="EditButton" onClick={()=>{setAddItem(true), validation()}}>
-                                    <span style={{ pointerEvents: 'none' }}> {addItem?'save':'+ Add Item'} </span>
+                                <button className="EditButton" style={{ pointerEvents: save?'none':'fill' }} onClick={()=>{addItem?validation():setAddItem(true) }}>
+                                    <span style={{ pointerEvents: 'none' }}> {addItem?save?'loading':'save':'+ Add Item'} </span>
                                 </button>
                             </td>
                         </tr>
