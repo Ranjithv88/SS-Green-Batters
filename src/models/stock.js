@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const commonSchema = {
   sno: { type: Number, required: true, unique: true },
-  product: { type: String, required: true },
+  product: { type: String, required: true, unique: true },
   packing: [{ type: String }],
   quantity: [{ type: String }],
   container: [{ type: String }],

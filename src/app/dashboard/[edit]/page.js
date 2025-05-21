@@ -17,12 +17,52 @@ const UserInformation = () => {
     const [stock, setStock] = useState([]);
     const [loading, setLoading] = useState(true);
     const [notValid, setNotValid] = useState(false);
+    const [addItem, setAddItem] = useState(false);
+    const columnName = ['Product', 'Packing', 'Quantity', 'Container'];
+    const [row, setRow] = useState(1);
+    const [product, setProduct] = useState('');
+    const [packing, setPacking] = useState(['']);
+    const [quantity, setQuantity] = useState(['']);
+    const [container, setContainer] = useState(['']);
+    const [productValidation, setProductValidation] = useState(false)
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    useEffect(() => {
+        const adjustArrayLength = (prevArray) => {
+            const updated = [...prevArray];
+            if (row > prevArray.length) {
+                while (updated.length < row) updated.push('');
+            } else {
+                updated.length = row;
+            }
+            return updated;
+        };
+
+        setPacking(prev => {
+            const updated = adjustArrayLength(prev);
+            console.log('Packing updated:', updated);
+            return updated;
+        });
+
+        setQuantity(prev => {
+            const updated = adjustArrayLength(prev);
+            console.log('Quantity updated:', updated);
+            return updated;
+        });
+
+        setContainer(prev => {
+            const updated = adjustArrayLength(prev);
+            console.log('Container updated:', updated);
+            return updated;
+        });
+
+        console.log('Row changed to:', row);
+    }, [row]);
+
 
     useEffect(() => {
         const path = pathName.split('/');
-        console.log("Path:", path);
         const sectionName = path[2];
-
         if (sectionName) {
             const value = getSectionDetails(sectionName);
             if (value) {
@@ -55,6 +95,31 @@ const UserInformation = () => {
             setLoading(false);
         }
     };
+
+    const SetNewData = (e, field, indexRow) => {
+        if(field==='Packing')
+            setPacking(prevItems => { const updatedItems = [...prevItems]; updatedItems[indexRow] = e.target.value; return updatedItems })
+        else if (field==='Quantity')
+            setQuantity(prevItems => { const updatedItems = [...prevItems]; updatedItems[indexRow] =  e.target.value; return updatedItems })
+        else
+            setContainer(prevItems => { const updatedItems = [...prevItems]; updatedItems[indexRow] =  e.target.value; return updatedItems })
+        console.log({ packing, quantity, container }, indexRow, field)
+    }
+
+    const validation = async() => {
+        if(addItem){
+            if(product===''){
+                const input = document.querySelector('#editInput')
+                if (input) {
+                    input.focus()
+                }
+                setProductValidation(true)
+                await sleep(5000)
+                setProductValidation(false)
+            }
+        }
+        // setAddItem(!addItem)
+    } 
 
     if (status === 'loading') {
         return <Loading />;
@@ -131,10 +196,36 @@ const UserInformation = () => {
                                 </React.Fragment>
                             ))
                         )}
+                       {addItem && (<>
+                        <tr>
+                           <td rowSpan={row}>{stock.length + 1}</td>
+                            <td rowSpan={row}>
+                                <input className="editInput" id='editInput' minLength={2} onChange={(e)=>setProduct(e.target.value)} value={product} placeholder={columnName[0]} />
+                                {productValidation&&<h5 style={{ color: 'rgba(227, 11, 92, 1)' }}> places Enter the value </h5>}
+                            </td>
+                            {[...Array(3)].map((_, index) => (
+                                <td key={index}>
+                                    <input className="editInput" minLength={2} onChange={(e)=>SetNewData(e,columnName[index+1],0)} placeholder={columnName[index+1]} />
+                                </td>
+                            ))}
+                            <td><button className="btn-2" onClick={()=>setRow(pre=>pre+1)}><span style={{ pointerEvents: 'none' }}> + Add Row </span></button></td>
+                            <td><button className="btn-2" onClick={()=>{setAddItem(false),setRow(1)}}><span style={{  color: 'rgba(227, 11, 92, 1)', pointerEvents: 'none' }}> X cancel </span></button></td>
+                        </tr>
+                        {[...Array(row-1)].map((_, indexRow) => ( 
+                        <tr key={indexRow}>
+                             {[...Array(3)].map((_, index) => (
+                                <td key={index}>
+                                    <input className="editInput" minLength={2} onChange={(e)=>SetNewData(e,columnName[index+1],indexRow+1)} placeholder={columnName[index+1]} />
+                                </td>
+                            ))}
+                            {indexRow===0&&<td colSpan={2}><button className="btn-2" onClick={()=>setRow(pre=>pre-1)}><span style={{ color: 'rgba(215, 197, 7, 1)', pointerEvents: 'none' }} > - Remove Row </span></button></td>}
+                        </tr>
+                        ))}
+                        </>)}
                         <tr>
                             <td colSpan='7' style={{ textAlign: "center", fontSize: '15px' }}>
-                                <button className="EditButton">
-                                    <span> + Add Item </span>
+                                <button className="EditButton" onClick={()=>{setAddItem(true), validation()}}>
+                                    <span style={{ pointerEvents: 'none' }}> {addItem?'save':'+ Add Item'} </span>
                                 </button>
                             </td>
                         </tr>
