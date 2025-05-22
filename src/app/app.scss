@@ -1,6 +1,6 @@
 
 // all properties Styles
-*{
+*, ::after, ::before{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,5 +15,9 @@
 @font-face {
     font-family: Oswald;
     src: url('../../public/font/Oswald-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: Griffy;
+    src: url('../../public/font/Griffy-Regular.ttf');
 }
 

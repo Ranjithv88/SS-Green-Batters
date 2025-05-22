@@ -1,197 +1,185 @@
-*, ::after, ::before {
-  box-sizing: border-box;
-}
 
-// SCSS Variables
-$bg_body: #212121;
-$bg_gradient_last_color: rgba(0, 212, 255, 1);
-$bg_gradient: linear-gradient(
-  90deg,
-  rgba(2, 0, 36, 1) 0%,
-  rgba(52, 9, 121, 1) 37%,
-  $bg_gradient_last_color 94%
-);
-
-body {
-  background-color: $bg_body;
-  color: #fff;
-  font-family: monospace, serif;
-  letter-spacing: 0.05em;
-}
-
-h1 {
-  font-size: 23px;
-}
-
-
-.form {
-  width: 300px;
-  padding: 64px 15px 24px;
-  margin: 0 auto;
-
-  .control {
-    margin: 0 0 24px;
-
-    .Back {
-      padding: 18px;
-      margin-right: 10px;
-      background-image: url('../../../public/image/BackArrowWhite.png');
-      background-position: center center;
-      background-size: contain;
-      background-repeat: no-repeat;
-      transition: padding 0.3s ease;
-      &:hover {
-        padding: 20px;
-      }
-    }
-
-    input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 0;
-      background: transparent;
-      color: #fff;
-      font-family: monospace, serif;
-      letter-spacing: 0.05em;
-      font-size: 16px;
-
-      &:hover,
-      &:focus {
-        outline: none;
-        border: 0;
-      }
-    }
-  }
-
-  .btn {
+// Login Page Style 
+.login {
+    height: 100vh;
     width: 100%;
-    display: block;
-    padding: 14px 16px;
-    background: transparent;
-    outline: none;
-    border: 0;
-    color: #fff;
-    letter-spacing: 0.1em;
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 16px;
-    cursor: pointer;
-  }
-}
+    background-color: rgba(33, 33, 33, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+  .form {
+    width: 300px;
+    padding: 64px 15px 24px;
+    margin: 0 auto;
 
-.block-cube {
-  position: relative;
+    .control {
+      margin: 0 0 24px;
 
-  .bg-top {
-    position: absolute;
-    height: 10px;
-    background: $bg_gradient;
-    bottom: 100%;
-    left: 5px;
-    right: -5px;
-    transform: skew(-45deg, 0);
-    margin: 0;
+      h1 {
+        font-size: 23px;
+        .Back {
+          padding: 18px;
+          margin-right: 10px;
+          background-image: url('../../../public/image/BackArrowWhite.png');
+          background-position: center center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          transition: padding 0.3s ease;
+          &:hover {
+            padding: 20px;
+          }
+        }
+      }
 
-    .bg-inner {
-      bottom: 0;
-    }
-  }
+      input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        font-family: monospace, serif;
+        letter-spacing: 0.05em;
+        font-size: 16px;
 
-  .bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: $bg_gradient;
-
-    .bg-inner {
-      transition: all 0.2s ease-in-out;
-    }
-  }
-
-  .bg-right {
-    position: absolute;
-    background: rgba(0, 212, 255, 1);
-    top: -5px;
-    z-index: 0;
-    bottom: 5px;
-    width: 10px;
-    left: 100%;
-    transform: skew(0, -45deg);
-
-    .bg-inner {
-      left: 0;
-    }
-  }
-
-  .bg-inner {
-    background: $bg_body;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-  }
-
-  .text {
-    position: relative;
-    z-index: 2;
-  }
-
-  &.block-input {
-    input {
-      position: relative;
-      z-index: 2;
-
-      &:focus ~ .bg-right .bg-inner,
-      &:focus ~ .bg-top .bg-inner,
-      &:focus ~ .bg-inner .bg-inner {
-        top: 100%;
-        background: rgba(255, 255, 255, 0.5);
+        &:hover,
+        &:focus {
+          outline: none;
+          border: 0;
+        }
       }
     }
 
-    .bg-top,
-    .bg-right,
-    .bg {
-      background: rgba(255, 255, 255, 0.5);
-      transition: background 0.2s ease-in-out;
+    .btn {
+      width: 100%;
+      display: block;
+      padding: 14px 16px;
+      background: transparent;
+      outline: none;
+      border: 0;
+      color: #fff;
+      letter-spacing: 0.1em;
+      font-weight: bold;
+      font-family: monospace;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .block-cube {
+    position: relative;
+
+    .bg-top {
+      position: absolute;
+      height: 10px;
+      background: linear-gradient(90deg,rgba(2, 0, 36, 1) 0%,rgba(52, 9, 121, 1) 37%, rgba(0, 212, 255, 1) 94%);
+      bottom: 100%;
+      left: 5px;
+      right: -5px;
+      transform: skew(-45deg, 0);
+      margin: 0;
+
+      .bg-inner {
+        bottom: 0;
+      }
     }
 
-    .bg-right,
-    .bg-top {
+    .bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg,rgba(2, 0, 36, 1) 0%,rgba(52, 9, 121, 1) 37%, rgba(0, 212, 255, 1) 94%);
+  ;
+
       .bg-inner {
         transition: all 0.2s ease-in-out;
       }
     }
 
-    &:focus,
-    &:hover {
+    .bg-right {
+      position: absolute;
+      background: rgba(0, 212, 255, 1);
+      top: -5px;
+      z-index: 0;
+      bottom: 5px;
+      width: 10px;
+      left: 100%;
+      transform: skew(0, -45deg);
+
+      .bg-inner {
+        left: 0;
+      }
+    }
+
+    .bg-inner {
+      background:rgba(33, 33, 33, 1);
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+    }
+
+    .text {
+      position: relative;
+      z-index: 2;
+    }
+
+    &.block-input {
+      input {
+        position: relative;
+        z-index: 2;
+
+        &:focus ~ .bg-right .bg-inner,
+        &:focus ~ .bg-top .bg-inner,
+        &:focus ~ .bg-inner .bg-inner {
+          top: 100%;
+          background: rgba(255, 255, 255, 0.5);
+        }
+      }
+
       .bg-top,
       .bg-right,
       .bg {
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.5);
+        transition: background 0.2s ease-in-out;
+      }
+
+      .bg-right,
+      .bg-top {
+        .bg-inner {
+          transition: all 0.2s ease-in-out;
+        }
+      }
+
+      &:focus,
+      &:hover {
+        .bg-top,
+        .bg-right,
+        .bg {
+          background: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+
+    &.block-cube-hover:focus,
+    &.block-cube-hover:hover {
+      .bg {
+        .bg-inner {
+          top: 100%;
+        }
       }
     }
   }
 
-  &.block-cube-hover:focus,
-  &.block-cube-hover:hover {
-    .bg {
-      .bg-inner {
-        top: 100%;
-      }
-    }
+  .error-message {
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+    margin-top: 0.25rem;
+    font-size: 1rem;
+    color: #ef4444;
   }
-}
-
-.error-message {
-  width: 100%;
-  padding-top: 10px;
-  text-align: center;
-  margin-top: 0.25rem;
-  font-size: 1rem;
-  color: #ef4444;
 }
 

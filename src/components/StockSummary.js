@@ -82,7 +82,7 @@ function StockSummary({ name, style }) {
             <tr>
               <td colSpan='5' style={{ textAlign: "center", fontSize: '15px' }}>
                 <button className="EditButton" onClick={()=>router.push(`dashboard/${name}`)}>
-                  <span style={{ pointerEvents: 'none' }}> + Add Item </span>
+                  <span style={{ pointerEvents: 'none' }}> Modify Item </span>
                 </button>
               </td>
             </tr>:<></>}

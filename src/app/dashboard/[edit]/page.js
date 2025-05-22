@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import getSectionDetails from '@/lib/data';
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const UserInformation = () => {
     const { data: session, status } = useSession();
@@ -28,6 +29,12 @@ const UserInformation = () => {
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const [save, setSave] = useState(false);
     const [productExist, setProductExist] = useState(false);
+    const path = pathName.split('/');
+    const router = useRouter();
+
+    const [deleteProcess, setDeleteProcess] = useState(false);
+    const [deletePopMessage, setDeletePopMessage] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     useEffect(() => {
         const adjustArrayLength = (prevArray) => {
@@ -62,7 +69,6 @@ const UserInformation = () => {
     }, [row]);
 
     useEffect(() => {
-        const path = pathName.split('/');
         const sectionName = path[2];
         if (sectionName) {
             const value = getSectionDetails(sectionName);
@@ -95,7 +101,7 @@ const UserInformation = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     const SetNewData = (e, field, indexRow) => {
         if(field==='Packing')
@@ -106,7 +112,6 @@ const UserInformation = () => {
             setContainer(prevItems => { const updatedItems = [...prevItems]; updatedItems[indexRow] =  e.target.value; return updatedItems })
         console.log({ packing, quantity, container }, indexRow, field)
     }
-
 
     const validation = async() => {
         setSave(true)
@@ -128,7 +133,6 @@ const UserInformation = () => {
 
     const saveData = async () => {
         try {
-            const path = pathName.split('/');
             const response = await axios.post(`http://localhost:3000/api/stock/edit/${path[2]}`, {
                 sno: stock.length+1,
                 product: product,
@@ -141,6 +145,8 @@ const UserInformation = () => {
             if(response.status===201){
                 console.log('Inserted:', response.data)
                 setProductExist(false)
+                setAddItem(false)
+                setRow(1)
                 window.location.reload()
             }
         } catch (error) {
@@ -156,6 +162,24 @@ const UserInformation = () => {
         }
     }
 
+    const deleteProduct = async(id) => {
+        setDeleteProcess(true)
+        if(id){
+            setDeletePopMessage(false)
+            try {
+                const response = await axios.delete(`http://localhost:3000/api/stock/edit/${path[2]+'+'+id}`, { withCredentials: true })
+                if(response.status===200) window.location.reload()
+            } catch(error) {
+                const errorMessage = error.response?.data?.error || ' Something went wrong '
+                console.error('Insert error:', errorMessage)
+            } finally {
+                setDeleteProcess(false)
+            }
+        }else {
+            console.log("Id is Null : ",id)
+        }
+    }
+
     if (status === 'loading') return <Loading />
 
     if (!session || notValid) return <NotFound />
@@ -166,7 +190,7 @@ const UserInformation = () => {
                 <Link className='Back' href={'/dashboard'}></Link>
                 <h2>{pathName.split('/')[2]}</h2>
             </div>
-            <div className="table-wrapper">
+            <div className="table-wrapper" >
                 <table className="fl-table">
                     <thead>
                         <tr>
@@ -204,7 +228,7 @@ const UserInformation = () => {
                                             <td>{item.container[subIndex]}</td>
                                             {subIndex === 0 && (
                                                 <td className='operationBtn' rowSpan={item.packing.length}>
-                                                    <button className="star-button" style={{ color: 'rgba(215, 197, 7, 1)' }}> Edit {[...Array(6)].map((_, index) => (
+                                                    <button className="star-button" style={{ color: 'rgba(215, 197, 7, 1)' }} onClick={()=>router.push(`${path[2]}/${item._id}`)}> Edit {[...Array(6)].map((_, index) => (
                                                         <div className={`star-${index + 1}`} key={index}>
                                                             <svg xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53" style={{ shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd' }} version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg"><g id="Layer_x0020_1"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" className="fil0" /></g></svg>
                                                         </div>
@@ -214,7 +238,7 @@ const UserInformation = () => {
                                             )}
                                             {subIndex === 0 && (
                                                 <td className='operationBtn' rowSpan={item.packing.length}>
-                                                    <button className="star-button" style={{  color: 'rgba(227, 11, 92, 1)' }}> Delete {[...Array(6)].map((_, index) => (
+                                                    <button className="star-button" style={{  color: 'rgba(227, 11, 92, 1)' }} onClick={()=>{setDeletePopMessage(true), setDeleteId(item._id), deleteProductName()}}> Delete {[...Array(6)].map((_, index) => (
                                                         <div className={`star-${index + 1}`} key={index}>
                                                             <svg xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53" style={{ shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'optimizeQuality', fillRule: 'evenodd', clipRule: 'evenodd' }} version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg"><g id="Layer_x0020_1"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" className="fil0" /></g></svg>
                                                         </div>
@@ -264,6 +288,23 @@ const UserInformation = () => {
                     </tbody>
                 </table>
             </div>
+            {deletePopMessage&&
+                <div className="card">
+                    <div className="card-body">
+                        <svg className="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"/>
+                        </svg>
+                        <div>
+                            <h3>Delete product ....!</h3>
+                            <p>that was permanently delete click ok delete product</p>
+                        </div>
+                    </div>
+                    <div className="progress">
+                        <button className="btn-first" style={{ pointerEvents: deleteProcess?'none':'fill' }} type="button" onClick={()=>{deleteProduct(deleteId)}} >Ok</button>
+                        <button className="btn-second" style={{ pointerEvents: deleteProcess?'none':'fill' }} type="button" onClick={()=>{setDeletePopMessage(false),setDeleteId(null)}}>Cancel</button>
+                    </div>
+                </div>
+            }
         </main>
     );
 };

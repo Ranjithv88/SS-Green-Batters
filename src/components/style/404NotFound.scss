@@ -9,33 +9,6 @@ $sketch-height: 400px;
 $sketch-width: 400px;
 
 .site {
-h1 {
-  font-family: $font-family;
-  font-size: $h1-font-size;
-  text-align: center;
-  opacity: 0.8;
-  order: 1;
-  small {
-    display: block;
-    font-family: $font-family;
-    text-align: center;
-    opacity: 0.8;
-  }
-  .Back {
-    padding: 18px;
-    margin-right: 10px;
-    background-image: url('../../../public/image/BackArrowBlack.png');
-    background-position: center center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: padding 0.3s ease;
-    &:hover {
-      padding: 20px;
-    }
-  }
-}
-
-
   width: 100%;
   height: 100vh;
   display: flex;
@@ -43,84 +16,107 @@ h1 {
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
-
+  h1 {
+    font-family: $font-family;
+    font-size: $h1-font-size;
+    text-align: center;
+    opacity: 0.8;
+    order: 1;
+    small {
+      display: block;
+      font-family: $font-family;
+      text-align: center;
+      opacity: 0.8;
+    }
+    .Back {
+      padding: 18px;
+      margin-right: 10px;
+      background-image: url('../../../public/image/BackArrowBlack.png');
+      background-position: center center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: padding 0.3s ease;
+      &:hover {
+        padding: 20px;
+      }
+    }
+  }
   @media only screen and (min-width: 780px) {
     flex-direction: row;
     padding: 1em 3em 1em 0;
   }
-}
 
-.sketch {
-  position: relative;
-  height: $sketch-height;
-  min-width: $sketch-width;
-  margin: 0;
-  overflow: visible;
-  order: 2;
+  .sketch {
+    position: relative;
+    height: $sketch-height;
+    min-width: $sketch-width;
+    margin: 0;
+    overflow: visible;
+    order: 2;
 
-  @media only screen and (min-width: 780px) {
-    order: 1;
+    @media only screen and (min-width: 780px) {
+      order: 1;
+    }
+  }
+
+  .bee-sketch {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .red {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png) no-repeat center center;
+    opacity: 1;
+    animation: red 3s linear infinite, opacityRed 5s linear alternate infinite;
+  }
+
+  .blue {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png) no-repeat center center;
+    opacity: 0;
+    animation: blue 3s linear infinite, opacityBlue 5s linear alternate infinite;
+  }
+
+  // Keyframes
+  @keyframes blue {
+    0% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png); }
+    9.09% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-2.png); }
+    27.27% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-3.png); }
+    36.36% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-4.png); }
+    45.45% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-5.png); }
+    54.54% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-6.png); }
+    63.63% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-7.png); }
+    72.72% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-8.png); }
+    81.81% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-9.png); }
+    100% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png); }
+  }
+
+  @keyframes red {
+    0% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png); }
+    9.09% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-2.png); }
+    27.27% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-3.png); }
+    36.36% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-4.png); }
+    45.45% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-5.png); }
+    54.54% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-6.png); }
+    63.63% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-7.png); }
+    72.72% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-8.png); }
+    81.81% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-9.png); }
+    100% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png); }
+  }
+
+  @keyframes opacityBlue {
+    from { opacity: 0; }
+    25% { opacity: 0; }
+    75% { opacity: 1; }
+    to { opacity: 1; }
+  }
+
+  @keyframes opacityRed {
+    from { opacity: 1; }
+    25% { opacity: 1; }
+    75% { opacity: 0.3; }
+    to { opacity: 0.3; }
   }
 }
-
-.bee-sketch {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.red {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png) no-repeat center center;
-  opacity: 1;
-  animation: red 3s linear infinite, opacityRed 5s linear alternate infinite;
-}
-
-.blue {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png) no-repeat center center;
-  opacity: 0;
-  animation: blue 3s linear infinite, opacityBlue 5s linear alternate infinite;
-}
-
-// Keyframes
-@keyframes blue {
-  0% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png); }
-  9.09% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-2.png); }
-  27.27% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-3.png); }
-  36.36% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-4.png); }
-  45.45% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-5.png); }
-  54.54% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-6.png); }
-  63.63% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-7.png); }
-  72.72% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-8.png); }
-  81.81% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-9.png); }
-  100% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/blue-1.png); }
-}
-
-@keyframes red {
-  0% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png); }
-  9.09% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-2.png); }
-  27.27% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-3.png); }
-  36.36% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-4.png); }
-  45.45% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-5.png); }
-  54.54% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-6.png); }
-  63.63% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-7.png); }
-  72.72% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-8.png); }
-  81.81% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-9.png); }
-  100% { background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/198554/red-1.png); }
-}
-
-@keyframes opacityBlue {
-  from { opacity: 0; }
-  25% { opacity: 0; }
-  75% { opacity: 1; }
-  to { opacity: 1; }
-}
-
-@keyframes opacityRed {
-  from { opacity: 1; }
-  25% { opacity: 1; }
-  75% { opacity: 0.3; }
-  to { opacity: 0.3; }
-}
-
