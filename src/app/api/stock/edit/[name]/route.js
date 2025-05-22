@@ -69,7 +69,6 @@ export async function DELETE(_, { params }) {
   if (!session || session.user.role !== "admin") return new Response(JSON.stringify({ message: "Forbidden" }),{ status: 403, headers: { "Content-Type": "application/json" } })
   try {
     await connectMongoDB()
-    const name = await params
     const [modelName, documentId] = params.name.split('+')
     const model = modelMap[modelName]
     console.log(model)

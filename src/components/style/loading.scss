@@ -1,11 +1,13 @@
 
 // Loading Page Style 
+// Color Variables
 $light-cyan: #d6fff6ff;
 $medium-turquoise: #4dccbdff;
 $russian-violet: #110d31ff;
 $french-blue: #2374abff;
 $light-coral: #fff;
 
+// Size and Animation
 $size: 80px;
 $animation-duration: 2s;
 
@@ -15,12 +17,12 @@ $animation-duration: 2s;
 }
 
 .scene {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100vh;
-    display: grid;
-    place-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }
 
 .cube-wrapper {
@@ -40,7 +42,7 @@ $animation-duration: 2s;
   width: $size;
   position: relative;
   transform-origin: 0 0;
-  transform: translateX(0) translateY(0) translateZ(-$size / 2);
+  transform: translateX(0) translateY(0) translateZ(calc(-#{$size} / 2));
 }
 
 .cube-face {
@@ -48,31 +50,31 @@ $animation-duration: 2s;
   inset: 0;
   background: $russian-violet;
   border: solid 1px $light-coral;
-  
+
   &.shadow {
     transform: translateZ(-$size);
     animation: bouncing-shadow $animation-duration infinite;
   }
-  
+
   &.top {
     transform: translateZ($size);
   }
-  
+
   &.front {
     transform-origin: 0 50%;
     transform: rotateY(-90deg);
   }
-  
+
   &.back {
     transform-origin: 0 50%;
     transform: rotateY(-90deg) translateZ(-$size);
   }
-  
+
   &.right {
     transform-origin: 50% 0;
     transform: rotateX(-90deg) translateY(-$size);
   }
-  
+
   &.left {
     transform-origin: 50% 0;
     transform: rotateX(-90deg) translateY(-$size) translateZ($size);
@@ -81,34 +83,36 @@ $animation-duration: 2s;
 
 @keyframes rotation {
   $start: 45deg;
-  
+
   0% {
     transform: rotateX($start) rotateY(0) rotateZ($start);
     animation-timing-function: cubic-bezier(0.17, 0.84, 0.44, 1);
   }
+
   50% {
-    transform: rotateX($start) rotateY(0) rotateZ($start + 360 / 2);
+    transform: rotateX($start) rotateY(0) rotateZ(calc(#{$start} + 180deg));
     animation-timing-function: cubic-bezier(0.76, 0.05, 0.86, 0.06);
   }
+
   100% {
-    transform: rotateX($start) rotateY(0) rotateZ($start + 360);
+    transform: rotateX($start) rotateY(0) rotateZ(calc(#{$start} + 360deg));
     animation-timing-function: cubic-bezier(0.17, 0.84, 0.44, 1);
   }
 }
 
 @keyframes bouncing {
   0% {
-    transform: translateY(-$size * 0.5);
+    transform: translateY(calc(-#{$size} / 2));
     animation-timing-function: cubic-bezier(0.76, 0.05, 0.86, 0.06);
   }
 
   45% {
-    transform: translateY($size * 0.5);
+    transform: translateY(calc(#{$size} / 2));
     animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   100% {
-    transform: translateY(-$size * 0.5);
+    transform: translateY(calc(-#{$size} / 2));
     animation-timing-function: cubic-bezier(0.76, 0.05, 0.86, 0.06);
   }
 }
