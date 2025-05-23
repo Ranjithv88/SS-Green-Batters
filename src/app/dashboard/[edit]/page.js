@@ -93,7 +93,7 @@ const UserInformation = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:3000/api/stock/get/${sectionName}`);
+            const response = await axios.get(`/api/stock/get/${sectionName}`);
             if (response.data.status === 200)
                 setStock(response.data?.products);
         } catch (error) {
@@ -133,7 +133,7 @@ const UserInformation = () => {
 
     const saveData = async () => {
         try {
-            const response = await axios.post(`http://localhost:3000/api/stock/edit/${path[2]}`, {
+            const response = await axios.post(`/api/stock/edit/${path[2]}`, {
                 sno: stock.length+1,
                 product: product,
                 packing: packing,
@@ -151,8 +151,8 @@ const UserInformation = () => {
             }
         } catch (error) {
             if(error.response.status===403){
-                console.log(" places login Again ...! ")
-                alert(" places login Again ...! ")
+                console.log(" Access Denied ...! ")
+                alert(" Access Denied ...! ")
             }else if (error.response.status===409){
                 console.log("enter")
                 setProductExist(true)
@@ -167,7 +167,7 @@ const UserInformation = () => {
         if(id){
             setDeletePopMessage(false)
             try {
-                const response = await axios.delete(`http://localhost:3000/api/stock/edit/${path[2]+'+'+id}`, { withCredentials: true })
+                const response = await axios.delete(`/api/stock/edit/${path[2]+'+'+id}`, { withCredentials: true })
                 if(response.status===200) window.location.reload()
             } catch(error) {
                 const errorMessage = error.response?.data?.error || ' Something went wrong '

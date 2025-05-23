@@ -1,5 +1,9 @@
 
 // NavBar Components Style 
+.navbarEmpty {
+    height: 10vh;
+    width: 100%;
+}
 .mainContainer {
     height: 10vh;
     width: 100%;
@@ -7,6 +11,10 @@
     justify-content: center;
     align-items: center;
     background: #1b1b2b;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11;
     .container {
         height: 8vh;
         width: 88%;

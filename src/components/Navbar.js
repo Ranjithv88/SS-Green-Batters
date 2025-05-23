@@ -24,46 +24,49 @@ const MenuNavigation = () => {
   };
 
   const handleLogout = () => {
-    signOut({ callbackUrl: '/' }); // No reload needed
+    signOut({ callbackUrl: '/' });
   };
 
   return (
-    <div className="mainContainer" id="mainContainer">
-      <div className="container">
-        <h1 className="title">SS Green Batters</h1>
+    <>
+      <div className='navbarEmpty'/>
+      <div className="mainContainer" id="mainContainer">
+        <div className="container">
+          <h1 className="title">SS Green Batters</h1>
 
-        <nav className="nav">
-          <Link href="/" className="btn">Home</Link>
+          <nav className="nav">
+            <Link href="/" className="btn">Home</Link>
 
-          <div className="dropdown">Menu
-            <div className="dropdown-content">
-              <a href="#Dust">Dust</a>
-              <a href="#WaterSoluble">WaterSoluble</a>
-              <a href="#Bio">Bio</a>
-              <a href="#Micronutrients">Micronutrients</a>
-              <a href="#LiquidFertilizers">LiquidFertilizers</a>
-              <a href="#Granules">Granules</a>
-              <a href="#Others">Others</a>
-              <a href="#Atharv">Atharv</a>
-              <a href="#Ratol">Ratol</a>
+            <div className="dropdown">Menu
+              <div className="dropdown-content">
+                <a href="#Dust">Dust</a>
+                <a href="#WaterSoluble">WaterSoluble</a>
+                <a href="#Bio">Bio</a>
+                <a href="#Micronutrients">Micronutrients</a>
+                <a href="#LiquidFertilizers">LiquidFertilizers</a>
+                <a href="#Granules">Granules</a>
+                <a href="#Others">Others</a>
+                <a href="#Atharv">Atharv</a>
+                <a href="#Ratol">Ratol</a>
+              </div>
             </div>
+
+            <a href="#footer" className="btn">About</a>
+          </nav>
+
+          <div>
+            {userName ? (
+              <>
+                <Link href="/dashboard" className="btn">{userName}</Link>
+                <button className="btn" type="button" onClick={handleLogout}>Logout</button>
+              </>
+            ) : (
+              <button className="btn" type="button" onClick={handleLogin}>Login</button>
+            )}
           </div>
-
-          <a href="#footer" className="btn">About</a>
-        </nav>
-
-        <div>
-          {userName ? (
-            <>
-              <Link href="/dashboard" className="btn">{userName}</Link>
-              <button className="btn" type="button" onClick={handleLogout}>Logout</button>
-            </>
-          ) : (
-            <button className="btn" type="button" onClick={handleLogin}>Login</button>
-          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

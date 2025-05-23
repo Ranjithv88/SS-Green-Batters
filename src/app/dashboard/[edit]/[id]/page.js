@@ -79,7 +79,7 @@ const UserInformation = () => {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:3000/api/stock/getOne/${sectionName}`, {id: path[3]}, {withCredentials: true});
+            const response = await axios.post(`/api/stock/getOne/${sectionName}`, {id: path[3]}, {withCredentials: true});
             if (response.data.status === 200){
                 setRow(response.data?.product?.packing.length)
                 setStock(response.data?.product)
@@ -90,8 +90,8 @@ const UserInformation = () => {
         } catch (error) {
             setNotValid(true)
             if(error.response.status===403){
-                console.log(" places login Again ...! ")
-                alert(" places login Again ...! ")
+                console.log(" Access Denied ....! ")
+                alert(" Access Denied ...! ")
             }
             const errorMessage = error.response?.data?.error || ' Something went wrong '
             console.error('Insert error:', errorMessage)
@@ -141,7 +141,7 @@ const UserInformation = () => {
             }
         if(data === stock) return false
         try {
-            const response = await axios.put(`http://localhost:3000/api/stock/edit/${path[2]+'+'+stock._id}`, data,{
+            const response = await axios.put(`/api/stock/edit/${path[2]+'+'+stock._id}`, data,{
                 withCredentials: true
             })
             if(response.status===200){
