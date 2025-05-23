@@ -43,9 +43,9 @@ const MenuNavigation = () => {
               <a href="#Micronutrients">Micronutrients</a>
               <a href="#LiquidFertilizers">LiquidFertilizers</a>
               <a href="#Granules">Granules</a>
-              <a href="#Ratol">Ratol</a>
-              <a href="#Atharv">Atharv</a>
               <a href="#Others">Others</a>
+              <a href="#Atharv">Atharv</a>
+              <a href="#Ratol">Ratol</a>
             </div>
           </div>
 

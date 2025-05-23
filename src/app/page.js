@@ -12,9 +12,9 @@ export default function Home() {
       <StockSummary name={"Micronutrients"} style={"rgba(222, 49, 99, 1)"}/>
       <StockSummary name={"LiquidFertilizers"} style={"rgba(159, 226, 191, 1)"}/>
       <StockSummary name={"Granules"} style={"rgba(64, 224, 208, 1)"}/>
-      <StockSummary name={"Ratol"} style={"rgba(100, 149, 237, 1)"}/>
+      <StockSummary name={"Others"} style={"rgba(100, 149, 237, 1)"}/>
       <StockSummary name={"Atharv"} style={"rgba(204, 204, 255, 1)"}/>
-      <StockSummary name={"Others"} style={"rgba(0, 0, 128, 1)"}/>
+      <StockSummary name={"Ratol"} style={"rgba(0, 0, 128, 1)"}/>
       <Footer/>
     </>
   )
