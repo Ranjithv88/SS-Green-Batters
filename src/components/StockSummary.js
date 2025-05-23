@@ -26,7 +26,7 @@ function StockSummary({ name, style }) {
 
   const getStock = async () => {
     try {
-      var response = await axios.get(`http://localhost:3000/api/stock/get/${name}`);
+      var response = await axios.get(`/api/stock/get/${name}`);
       if(response.data.status === 200)
         setStock(response.data?.products)
     } catch (error) {
