@@ -96,6 +96,8 @@
 /* 🔽 Mobile Styles */
 @media only screen and (max-width: 750px) {
     .mainContainer {
+        position: absolute;
+        top: 0;
         .container {
             .dropdown{
                 display: none;
